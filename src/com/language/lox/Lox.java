@@ -9,7 +9,7 @@ import java.util.Scanner;
 
 public class Lox {
 	
-	static boolean hadError = false;
+	private static boolean hadError = false;
 	
 	public static void main(String[] args) throws IOException {
 		if (args.length > 1) {
@@ -22,7 +22,7 @@ public class Lox {
 		}
 	}
 	
-	private static void runPrompt() throws IOException {
+	private static void runPrompt() {
 		Scanner scanner = new Scanner(System.in);
 		
 		for (; ; ) {
@@ -57,11 +57,11 @@ public class Lox {
 	}
 	
 	static void error(int line, String message) {
-		report(line, "", message);
+		report(line, message);
 	}
 	
-	private static void report(int line, String where, String message) {
-		System.err.println("[line" + line + "] Error" + where + ": " + message);
+	private static void report(int line, String message) {
+		System.err.println("[line" + line + "] Error" + "" + ": " + message);
 		hadError = true;
 	}
 	
