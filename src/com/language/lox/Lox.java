@@ -50,6 +50,8 @@ public class Lox {
 	private static void run(String source) {
 		LoxScanner scanner = new LoxScanner(source);
 		List<Token> tokens = scanner.scanTokens();
+		Parser parser = new Parser(tokens);
+		Expr expressions = parser.parse();
 		
 		for (Token token : tokens) {
 			System.out.println(token);
@@ -57,12 +59,20 @@ public class Lox {
 	}
 	
 	static void error(int line, String message) {
-		report(line, message);
+		report(line, "", message);
 	}
 	
-	private static void report(int line, String message) {
-		System.err.println("[line" + line + "] Error" + "" + ": " + message);
+	private static void report(int line, String where, String message) {
+		System.err.println("[line" + line + "]" + where + " Error" + "" + ": " + message);
 		hadError = true;
+	}
+	
+	static void error(Token token, String message) {
+		if (token.type == TokenType.EOF) {
+			report(token.line, " at end", message);
+		} else {
+			report(token.line, " at '" + token.lexeme + "'", message);
+		}
 	}
 	
 }
