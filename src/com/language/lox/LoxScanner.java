@@ -54,50 +54,63 @@ public class LoxScanner {
 		char c = advance();
 		
 		switch (c) {
-			case '(': {
+			case '(':
 				addToken(LEFT_PAREN);
-			}
-			case ')': {
+				break;
+			
+			case ')':
 				addToken(RIGHT_PAREN);
-			}
-			case '{': {
+				break;
+			
+			case '{':
 				addToken(LEFT_BRACE);
-			}
-			case '}': {
+				break;
+			
+			case '}':
 				addToken(RIGHT_BRACE);
-			}
-			case ',': {
+				break;
+			
+			case ',':
 				addToken(COMMA);
-			}
-			case '.': {
+				break;
+			
+			case '.':
 				addToken(DOT);
-			}
-			case '-': {
+				break;
+			
+			case '-':
 				addToken(MINUS);
-			}
-			case '+': {
+				break;
+			
+			case '+':
 				addToken(PLUS);
-			}
-			case ';': {
+				break;
+			
+			case ';':
 				addToken(SEMICOLON);
-			}
-			case '*': {
+				break;
+			
+			case '*':
 				addToken(STAR);
-			}
-			case '>': {
+				break;
+			
+			case '>':
 				addToken(match('=') ? GREATER_EQUAL : GREATER);
-			}
-			case '<': {
+				break;
+			
+			case '<':
 				addToken(match('=') ? LESS_EQUAL : LESS);
-				
-			}
-			case '=': {
+				break;
+			
+			case '=':
 				addToken(match('=') ? EQUAL_EQUAL : EQUAL);
-			}
-			case '!': {
+				break;
+			
+			case '!':
 				addToken(match('=') ? BANG_EQUAL : BANG);
-			}
-			case '/': {
+				break;
+			
+			case '/':
 				if (match('/')) {
 					while (peek() != '\n' && !isAtEnd()) {
 						advance();
@@ -105,18 +118,19 @@ public class LoxScanner {
 				} else {
 					addToken(SLASH);
 				}
-			}
+				break;
+			
 			case ' ':
 			case '\t':
 			case '\r':
 				break;
-			case '\n': {
+			case '\n':
 				line++;
-			}
-			case '"': {
+			
+			case '"':
 				string();
-			}
-			default: {
+				break;
+			default:
 				if (isDigit(c)) {
 					number();
 				} else if (isAlpha(c)) {
@@ -124,7 +138,7 @@ public class LoxScanner {
 				} else {
 					Lox.error(line, "Unexpected token");
 				}
-			}
+				break;
 		}
 	}
 	
